@@ -9,13 +9,13 @@ SLockr (pronounced /ˈlɒkəʳ/) is an extremely lightweight library (<2kb when 
 In order to user SLockr, you firstly need to install it in your project.
 
 ```js
-bower install SLockr
+bower install slockr
 ```
 
 or you use npm to install
 
 ```js
-npm i SLockr --save
+npm i slockr --save
 ```
 
 or maybe download it manually hook it in your HTML.
