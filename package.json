@@ -1,24 +1,24 @@
 {
-  "name": "lockr",
+  "name": "slockr",
   "version": "0.8.4",
   "author": {
-    "name": "Dimitris Tsironis",
-    "email": "tsironis.dimitris@gmail.com"
+    "name": "Fabiano Taioli",
+    "email": "ftaioli@vista.it"
   },
   "engines": {
     "node": ">= 0.8.0"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tsironis/lockr.git"
+    "url": "git@github.com:ftaiolivista/lockr.git"
   },
   "license": "MIT",
   "files": [
-    "lockr.js",
-    "lockr.min.js",
+    "slockr.js",
+    "slockr.min.js",
     "LICENSE"
   ],
-  "main": "lockr.js",
+  "main": "slockr.js",
   "devDependencies": {
     "grunt-contrib-jshint": "~0.11.0",
     "grunt-contrib-jasmine": "~1.0.0",

@@ -1,5 +1,5 @@
 {
-  "name": "lockr",
+  "name": "slockr",
   "version": "0.8.2",
   "ignore": [
     "**/.*",
@@ -17,8 +17,8 @@
   },
   "keywords": [
     "lockr",
-    "localStorage",
+    "sessionStorage",
     "webapps"
   ],
-  "main": "./lockr.js"
+  "main": "./slockr.js"
 }

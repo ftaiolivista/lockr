@@ -1,169 +1,166 @@
-![Lockr logo](http://i.imgur.com/m5kPjkB.png)
-[![Code
-Climate](https://codeclimate.com/github/tsironis/lockr/badges/gpa.svg)](https://codeclimate.com/github/tsironis/lockr)
+![SLockr logo](http://i.imgur.com/GfLtw3Z.png)
 
+> A minimal API wrapper for ~~localStorage~~ sessionStorage. Simple as your high-school locker.
 
-> A minimal API wrapper for localStorage. Simple as your high-school locker.
+SLockr (pronounced /ˈlɒkəʳ/) is an extremely lightweight library (<2kb when minified), designed to facilitate how you interact with sessionStorage. Saving objects and arrays, numbers or other data types, accessible via a Redis-like API. Is a sessionStorage clone of  [Dimitris Tsironis Lockr](https://github.com/tsironis/SLockr).
 
-Lockr (pronounced /ˈlɒkəʳ/) is an extremely lightweight library (<2kb when minified), designed to facilitate how you interact with localStorage. Saving objects and arrays, numbers or other data types, accessible via a Redis-like API, heavily inspired by [node_redis](https://github.com/mranney/node_redis/).
+## How to use SLockr
 
-## How to use lockr
-
-In order to user lockr, you firstly need to install it in your project.
+In order to user SLockr, you firstly need to install it in your project.
 
 ```js
-bower install lockr
+bower install SLockr
 ```
 
-or you use npm to install 
+or you use npm to install
 
 ```js
-npm i lockr --save
+npm i SLockr --save
 ```
 
-or maybe download it manually from [here](https://raw.github.com/tsironis/lockr/master/lockr.js) and hook it in your HTML.
+or maybe download it manually hook it in your HTML.
 
 ```html
-<script src="/path/to/lockr.js" type="text/javascript"></script>
+<script src="/path/to/SLockr.js" type="text/javascript"></script>
 ```
 
 ## API reference
 
-```Lockr.set``` - arguments: *[ key, value ]* {String, Number, Array or Object}
+```SLockr.set``` - arguments: *[ key, value ]* {String, Number, Array or Object}
 
 > Set a key to a particular value or a hash object (```Object``` or ```Array```) under a hash key.
 
 *Example*
 
 ```js
-Lockr.set('username', 'Coyote'); // Saved as string
-Lockr.set('user_id', 12345); // Saved as number
-Lockr.set('users', [{name: 'John Doe', age: 18}, {name: 'Jane Doe', age: 19}]);
+SLockr.set('username', 'Coyote'); // Saved as string
+SLockr.set('user_id', 12345); // Saved as number
+SLockr.set('users', [{name: 'John Doe', age: 18}, {name: 'Jane Doe', age: 19}]);
 ```
 
 ---
 
-```Lockr.get``` - arguments: *[ key or hash_key, default value ]*
+```SLockr.get``` - arguments: *[ key or hash_key, default value ]*
 
 > Returns the saved value for given key, even if the saved value is hash object. If value is null or undefined it returns a default value.
 
 *Example*
 ```js
-Lockr.get('username');
+SLockr.get('username');
 > "Coyote"
 
-Lockr.get('user_id');
+SLockr.get('user_id');
 > 12345
 
-Lockr.get('users');
+SLockr.get('users');
 >  [{name: 'John Doe', age: 18}, {name: 'Jane Doe', age: 19}]
 
-Lockr.get('score', 0):
+SLockr.get('score', 0):
 > 0
 
-Lockr.set('score', 3):
-Lockr.get('score', 0):
+SLockr.set('score', 3):
+SLockr.get('score', 0):
 > 3
 ```
 
 ---
 
-```Lockr.rm``` - arguments: *[ key ]* {String}
+```SLockr.rm``` - arguments: *[ key ]* {String}
 
-> Remove a key from ```localStorage``` entirely.
+> Remove a key from ```sessionStorage``` entirely.
 
 *Example*
 
 ```js
-Lockr.set('username', 'Coyote'); // Saved as string
-Lockr.get('username');
+SLockr.set('username', 'Coyote'); // Saved as string
+SLockr.get('username');
 > "Coyote"
-Lockr.rm('username');
-Lockr.get('username');
+SLockr.rm('username');
+SLockr.get('username');
 > undefined
 ```
 
 ---
 
-```Lockr.sadd``` - arguments *[ key, value ]*{String, Number, Array or Object}
+```SLockr.sadd``` - arguments *[ key, value ]*{String, Number, Array or Object}
 
 > Adds a unique value to a particular set under a hash key.
 
 *Example*
 
 ```js
-Lockr.sadd("wat", 1); // [1]
-Lockr.sadd("wat", 2); // [1, 2]
-Lockr.sadd("wat", 1); // [1, 2]
+SLockr.sadd("wat", 1); // [1]
+SLockr.sadd("wat", 2); // [1, 2]
+SLockr.sadd("wat", 1); // [1, 2]
 ```
 
 ---
 
-```Lockr.smembers``` - arguments *[ key ]*
+```SLockr.smembers``` - arguments *[ key ]*
 
 > Returns the values of a particular set under a hash key.
 
 *Example*
 
 ```js
-Lockr.sadd("wat", 42);
-Lockr.sadd("wat", 1337);
-Lockr.smembers("wat"); // [42, 1337]
+SLockr.sadd("wat", 42);
+SLockr.sadd("wat", 1337);
+SLockr.smembers("wat"); // [42, 1337]
 ```
 
 ---
 
-```Lockr.sismember``` - arguments *[ key, value ]*
+```SLockr.sismember``` - arguments *[ key, value ]*
 
 > Returns whether the value exists in a particular set under a hash key.
 
 *Example*
 
 ```js
-Lockr.sadd("wat", 1);
-Lockr.sismember("wat", 1); // true
-Lockr.sismember("wat", 2); // false
+SLockr.sadd("wat", 1);
+SLockr.sismember("wat", 1); // true
+SLockr.sismember("wat", 2); // false
 ```
 
 ---
 
-```Lockr.srem``` - arguments *[ key, value ]*
+```SLockr.srem``` - arguments *[ key, value ]*
 
 > Removes a value from a particular set under a hash key.
 
 *Example*
 
 ```js
-Lockr.sadd("wat", 1);
-Lockr.sadd("wat", 2);
-Lockr.srem("wat", 1);
-Lockr.smembers("wat"); // [2]
+SLockr.sadd("wat", 1);
+SLockr.sadd("wat", 2);
+SLockr.srem("wat", 1);
+SLockr.smembers("wat"); // [2]
 ```
 
 ---
 
-```Lockr.getAll``` - arguments: *null*
+```SLockr.getAll``` - arguments: *null*
 
 > Returns all saved values & objects, in an ```Array```
 
 *Example*
 
 ```js
-Lockr.getAll();
+SLockr.getAll();
 > ["Coyote", 12345, [{name: 'John Doe', age: 18}, {name: 'Jane Doe', age: 19}]]
 ```
 ---
 
-```Lockr.flush()``` - arguments: *null*
+```SLockr.flush()``` - arguments: *null*
 
-> Empties localStorage().
+> Empties sessionStorage().
 
 *Example*
 
 ```js
-localStorage.length;
+sessionStorage.length;
 > 3
-Lockr.flush();
-localStorage.length;
+SLockr.flush();
+sessionStorage.length;
 > 0
 ```

@@ -34,7 +34,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine: {
-      src: 'lockr.js',
+      src: 'slockr.js',
       options: {
         specs:  'specs/lockrSpecs.js',
         keepRunner: true
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
       },
       lockr: {
         files: {
-          'lockr.min.js': ['lockr.js']
+          'slockr.min.js': ['slockr.js']
         }
       }
     },
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: [
-          'lockr.js',
+          'slockr.js',
           'specs/**/*.js'
         ],
         tasks: ['specs']

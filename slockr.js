@@ -6,13 +6,13 @@
     }
   } else if (typeof define === 'function' && define.amd) {
     define(['exports'], function(exports) {
-      root.Lockr = factory(root, exports);
+      root.SLockr = factory(root, exports);
     });
   } else {
-    root.Lockr = factory(root, {});
+    root.SLockr = factory(root, {});
   }
 
-}(this, function(root, Lockr) {
+}(this, function(root, SLockr) {
   'use strict';
 
   if (!Array.prototype.indexOf) {
@@ -37,9 +37,9 @@
     };
   }
 
-  Lockr.prefix = "";
+  SLockr.prefix = "";
 
-  Lockr._getPrefixedKey = function(key, options) {
+  SLockr._getPrefixedKey = function(key, options) {
     options = options || {};
 
     if (options.noPrefix) {
@@ -50,25 +50,25 @@
 
   };
 
-  Lockr.set = function (key, value, options) {
+  SLockr.set = function (key, value, options) {
     var query_key = this._getPrefixedKey(key, options);
 
     try {
-      localStorage.setItem(query_key, JSON.stringify({"data": value}));
+      sessionStorage.setItem(query_key, JSON.stringify({"data": value}));
     } catch (e) {
-      if (console) console.warn("Lockr didn't successfully save the '{"+ key +": "+ value +"}' pair, because the localStorage is full.");
+      if (console) console.warn("SLockr didn't successfully save the '{"+ key +": "+ value +"}' pair, because the sessionStorage is full.");
     }
   };
 
-  Lockr.get = function (key, missing, options) {
+  SLockr.get = function (key, missing, options) {
     var query_key = this._getPrefixedKey(key, options),
         value;
 
     try {
-      value = JSON.parse(localStorage.getItem(query_key));
+      value = JSON.parse(sessionStorage.getItem(query_key));
     } catch (e) {
-            if(localStorage[query_key]) {
-              value = {data: localStorage.getItem(query_key)};
+            if(sessionStorage[query_key]) {
+              value = {data: sessionStorage.getItem(query_key)};
             } else{
                 value = null;
             }
@@ -82,11 +82,11 @@
     }
   };
 
-  Lockr.sadd = function(key, value, options) {
+  SLockr.sadd = function(key, value, options) {
     var query_key = this._getPrefixedKey(key, options),
         json;
 
-    var values = Lockr.smembers(key);
+    var values = SLockr.smembers(key);
 
     if (values.indexOf(value) > -1) {
       return null;
@@ -95,19 +95,19 @@
     try {
       values.push(value);
       json = JSON.stringify({"data": values});
-      localStorage.setItem(query_key, json);
+      sessionStorage.setItem(query_key, json);
     } catch (e) {
       console.log(e);
-      if (console) console.warn("Lockr didn't successfully add the "+ value +" to "+ key +" set, because the localStorage is full.");
+      if (console) console.warn("SLockr didn't successfully add the "+ value +" to "+ key +" set, because the sessionStorage is full.");
     }
   };
 
-  Lockr.smembers = function(key, options) {
+  SLockr.smembers = function(key, options) {
     var query_key = this._getPrefixedKey(key, options),
         value;
 
     try {
-      value = JSON.parse(localStorage.getItem(query_key));
+      value = JSON.parse(sessionStorage.getItem(query_key));
     } catch (e) {
       value = null;
     }
@@ -118,40 +118,40 @@
       return (value.data || []);
   };
 
-  Lockr.sismember = function(key, value, options) {
-    return Lockr.smembers(key).indexOf(value) > -1;
+  SLockr.sismember = function(key, value, options) {
+    return SLockr.smembers(key).indexOf(value) > -1;
   };
 
-  Lockr.keys = function() {
+  SLockr.keys = function() {
     var keys = [];
-    var allKeys = Object.keys(localStorage);
+    var allKeys = Object.keys(sessionStorage);
 
-    if (Lockr.prefix.length === 0) {
+    if (SLockr.prefix.length === 0) {
       return allKeys;
     }
 
     allKeys.forEach(function (key) {
-      if (key.indexOf(Lockr.prefix) !== -1) {
-        keys.push(key.replace(Lockr.prefix, ''));
+      if (key.indexOf(SLockr.prefix) !== -1) {
+        keys.push(key.replace(SLockr.prefix, ''));
       }
     });
 
     return keys;
   };
 
-  Lockr.getAll = function () {
-    var keys = Lockr.keys();
+  SLockr.getAll = function () {
+    var keys = SLockr.keys();
     return keys.map(function (key) {
-      return Lockr.get(key);
+      return SLockr.get(key);
     });
   };
 
-  Lockr.srem = function(key, value, options) {
+  SLockr.srem = function(key, value, options) {
     var query_key = this._getPrefixedKey(key, options),
         json,
         index;
 
-    var values = Lockr.smembers(key, value);
+    var values = SLockr.smembers(key, value);
 
     index = values.indexOf(value);
 
@@ -161,25 +161,25 @@
     json = JSON.stringify({"data": values});
 
     try {
-      localStorage.setItem(query_key, json);
+      sessionStorage.setItem(query_key, json);
     } catch (e) {
-      if (console) console.warn("Lockr couldn't remove the "+ value +" from the set "+ key);
+      if (console) console.warn("SLockr couldn't remove the "+ value +" from the set "+ key);
     }
   };
 
-  Lockr.rm =  function (key) {
-    localStorage.removeItem(key);
+  SLockr.rm =  function (key) {
+    sessionStorage.removeItem(key);
   };
 
-  Lockr.flush = function () {
-    if (Lockr.prefix.length) {
-      Lockr.keys().forEach(function(key) {
-        localStorage.removeItem(Lockr._getPrefixedKey(key));
+  SLockr.flush = function () {
+    if (SLockr.prefix.length) {
+      SLockr.keys().forEach(function(key) {
+        sessionStorage.removeItem(SLockr._getPrefixedKey(key));
       });
     } else {
-      localStorage.clear();
+      sessionStorage.clear();
     }
   };
-  return Lockr;
+  return SLockr;
 
 }));
