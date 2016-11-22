@@ -1,6 +1,6 @@
 {
   "name": "slockr",
-  "version": "0.8.4-slockr",
+  "version": "0.0.1",
   "ignore": [
     "**/.*",
     "**/_*",
@@ -16,6 +16,7 @@
     "jasmine": "~1.3.1"
   },
   "keywords": [
+    "slockr",
     "lockr",
     "sessionStorage",
     "webapps"
